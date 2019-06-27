@@ -18,7 +18,7 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSetting",
 							"recursive": false,
-							"wildcardFileName": "*.*",
+							"wildcardFileName": "winter.csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
