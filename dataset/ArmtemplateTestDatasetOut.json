@@ -1,0 +1,15 @@
+{
+	"name": "ArmtemplateTestDatasetOut",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ArmtemplateStorageLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"type": "AzureBlob",
+		"typeProperties": {
+			"fileName": "winter_output.csv",
+			"folderPath": "fipacontainer/output/"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
