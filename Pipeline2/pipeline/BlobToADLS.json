@@ -28,7 +28,7 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSetting"
+							"type": "AzureDataLakeStoreWriteSetting"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSetting",
@@ -46,7 +46,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ADLSdatasetoutput",
+						"referenceName": "ADLS1Fipa_dataset",
 						"type": "DatasetReference"
 					}
 				]
