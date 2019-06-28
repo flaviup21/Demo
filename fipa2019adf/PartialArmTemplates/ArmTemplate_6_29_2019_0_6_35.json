@@ -1,0 +1,37 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory Name",
+			"defaultValue": "fipa2019adf"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/ADLS1_FIPA')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDataLakeStore",
+				"typeProperties": {
+					"dataLakeStoreUri": "https://adlanalyticsfipaadls.azuredatalakestore.net/webhdfs/v1",
+					"servicePrincipalId": "feeb9294-2e3f-43de-bd12-e6e4301b910b",
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "**********"
+					},
+					"tenant": "a136b051-8551-4674-92c1-8dc4abb2b592",
+					"subscriptionId": "aca480e6-8a4b-4105-91ce-3c5942657b43",
+					"resourceGroupName": "AdfDemo"
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
