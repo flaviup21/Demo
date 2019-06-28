@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'BlobStorageSource'"
 		},
+		"ADLS1_FIPA_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'ADLS1_FIPA'"
+		},
 		"ADLSDestination_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://datalakestoragefipa.dfs.core.windows.net"
@@ -40,6 +44,26 @@
 			"defaultValue": "aca480e6-8a4b-4105-91ce-3c5942657b43"
 		},
 		"AzureDataLakeAnalytics1_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "AdfDemo"
+		},
+		"ADLS1_FIPA_properties_typeProperties_dataLakeStoreUri": {
+			"type": "string",
+			"defaultValue": "https://adlanalyticsfipaadls.azuredatalakestore.net/webhdfs/v1"
+		},
+		"ADLS1_FIPA_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "feeb9294-2e3f-43de-bd12-e6e4301b910b"
+		},
+		"ADLS1_FIPA_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "a136b051-8551-4674-92c1-8dc4abb2b592"
+		},
+		"ADLS1_FIPA_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "aca480e6-8a4b-4105-91ce-3c5942657b43"
+		},
+		"ADLS1_FIPA_properties_typeProperties_resourceGroupName": {
 			"type": "string",
 			"defaultValue": "AdfDemo"
 		},
@@ -79,6 +103,9 @@
 					"BlobStorageSource_connectionString": {
 						"value": "[parameters('BlobStorageSource_connectionString')]"
 					},
+					"ADLS1_FIPA_servicePrincipalKey": {
+						"value": "[parameters('ADLS1_FIPA_servicePrincipalKey')]"
+					},
 					"ADLSDestination_properties_typeProperties_url": {
 						"value": "[parameters('ADLSDestination_properties_typeProperties_url')]"
 					},
@@ -96,6 +123,21 @@
 					},
 					"AzureDataLakeAnalytics1_properties_typeProperties_resourceGroupName": {
 						"value": "[parameters('AzureDataLakeAnalytics1_properties_typeProperties_resourceGroupName')]"
+					},
+					"ADLS1_FIPA_properties_typeProperties_dataLakeStoreUri": {
+						"value": "[parameters('ADLS1_FIPA_properties_typeProperties_dataLakeStoreUri')]"
+					},
+					"ADLS1_FIPA_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('ADLS1_FIPA_properties_typeProperties_servicePrincipalId')]"
+					},
+					"ADLS1_FIPA_properties_typeProperties_tenant": {
+						"value": "[parameters('ADLS1_FIPA_properties_typeProperties_tenant')]"
+					},
+					"ADLS1_FIPA_properties_typeProperties_subscriptionId": {
+						"value": "[parameters('ADLS1_FIPA_properties_typeProperties_subscriptionId')]"
+					},
+					"ADLS1_FIPA_properties_typeProperties_resourceGroupName": {
+						"value": "[parameters('ADLS1_FIPA_properties_typeProperties_resourceGroupName')]"
 					}
 				}
 			},

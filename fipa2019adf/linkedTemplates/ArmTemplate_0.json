@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'BlobStorageSource'"
 		},
+		"ADLS1_FIPA_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'ADLS1_FIPA'"
+		},
 		"ADLSDestination_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://datalakestoragefipa.dfs.core.windows.net"
@@ -40,6 +44,26 @@
 			"defaultValue": "aca480e6-8a4b-4105-91ce-3c5942657b43"
 		},
 		"AzureDataLakeAnalytics1_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "AdfDemo"
+		},
+		"ADLS1_FIPA_properties_typeProperties_dataLakeStoreUri": {
+			"type": "string",
+			"defaultValue": "https://adlanalyticsfipaadls.azuredatalakestore.net/webhdfs/v1"
+		},
+		"ADLS1_FIPA_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "feeb9294-2e3f-43de-bd12-e6e4301b910b"
+		},
+		"ADLS1_FIPA_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "a136b051-8551-4674-92c1-8dc4abb2b592"
+		},
+		"ADLS1_FIPA_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "aca480e6-8a4b-4105-91ce-3c5942657b43"
+		},
+		"ADLS1_FIPA_properties_typeProperties_resourceGroupName": {
 			"type": "string",
 			"defaultValue": "AdfDemo"
 		}
@@ -95,6 +119,27 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('BlobStorageSource_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ADLS1_FIPA')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDataLakeStore",
+				"typeProperties": {
+					"dataLakeStoreUri": "[parameters('ADLS1_FIPA_properties_typeProperties_dataLakeStoreUri')]",
+					"servicePrincipalId": "[parameters('ADLS1_FIPA_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "[parameters('ADLS1_FIPA_servicePrincipalKey')]"
+					},
+					"tenant": "[parameters('ADLS1_FIPA_properties_typeProperties_tenant')]",
+					"subscriptionId": "[parameters('ADLS1_FIPA_properties_typeProperties_subscriptionId')]",
+					"resourceGroupName": "[parameters('ADLS1_FIPA_properties_typeProperties_resourceGroupName')]"
 				}
 			},
 			"dependsOn": []
@@ -246,6 +291,45 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ADLS1Fipa_dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLS1_FIPA",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureDataLakeStoreLocation",
+						"folderPath": "Files/Input"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLS1_FIPA')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/BlobToADLS')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -277,7 +361,7 @@
 							"sink": {
 								"type": "DelimitedTextSink",
 								"storeSettings": {
-									"type": "AzureBlobFSWriteSetting"
+									"type": "AzureDataLakeStoreWriteSetting"
 								},
 								"formatSettings": {
 									"type": "DelimitedTextWriteSetting",
@@ -296,7 +380,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "ADLSdatasetoutput",
+								"referenceName": "ADLS1Fipa_dataset",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -307,7 +391,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/CSVfileinput')]",
-				"[concat(variables('factoryId'), '/datasets/ADLSdatasetoutput')]"
+				"[concat(variables('factoryId'), '/datasets/ADLS1Fipa_dataset')]"
 			]
 		}
 	]
