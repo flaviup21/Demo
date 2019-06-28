@@ -1,0 +1,16 @@
+{
+	"name": "ADLS1_FIPA",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDataLakeStore",
+		"typeProperties": {
+			"dataLakeStoreUri": "https://adlanalyticsfipaadls.azuredatalakestore.net/webhdfs/v1",
+			"servicePrincipalId": "feeb9294-2e3f-43de-bd12-e6e4301b910b",
+			"tenant": "a136b051-8551-4674-92c1-8dc4abb2b592",
+			"subscriptionId": "aca480e6-8a4b-4105-91ce-3c5942657b43",
+			"resourceGroupName": "AdfDemo",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkZJUEEyMDE5QURGXzg3YjMxNWY5LWYxMTItNDMxZi05MjA3LTZjOTU1MGIxMjE5NyINCn0="
+		}
+	}
+}
