@@ -71,9 +71,7 @@
 								"type": "DelimitedTextSource",
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSetting",
-									"recursive": false,
-									"wildcardFileName": "winter.csv",
-									"enablePartitionDiscovery": false
+									"recursive": true
 								},
 								"formatSettings": {
 									"type": "DelimitedTextReadSetting"
