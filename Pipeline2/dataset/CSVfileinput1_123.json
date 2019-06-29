@@ -1,5 +1,5 @@
 {
-	"name": "CSVfileinput1",
+	"name": "CSVfileinput1_123",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "BlobStorageSource",

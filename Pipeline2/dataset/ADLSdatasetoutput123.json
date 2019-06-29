@@ -1,15 +1,16 @@
 {
-	"name": "ADLSdatasetoutput",
+	"name": "ADLSdatasetoutput123",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ADLSDestination",
 			"type": "LinkedServiceReference"
 		},
+		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"container": "output"
+				"fileSystem": "output"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

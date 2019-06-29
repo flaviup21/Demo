@@ -40,13 +40,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "CSVfileinput",
+						"referenceName": "CSVfileinput123",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "ADLS1Fipa_dataset",
+						"referenceName": "ADLS1Fipa_dataset123",
 						"type": "DatasetReference"
 					}
 				]
