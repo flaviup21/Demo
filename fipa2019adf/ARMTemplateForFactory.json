@@ -7,6 +7,10 @@
 			"metadata": "Data Factory Name",
 			"defaultValue": "fipa2019adf"
 		},
+		"ADLS1_FIPA_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'ADLS1_FIPA'"
+		},
 		"ADLSDestination_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ADLSDestination'"
@@ -19,9 +23,25 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'BlobStorageSource'"
 		},
-		"ADLS1_FIPA_servicePrincipalKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'servicePrincipalKey' of 'ADLS1_FIPA'"
+		"ADLS1_FIPA_properties_typeProperties_dataLakeStoreUri": {
+			"type": "string",
+			"defaultValue": "https://adlanalyticsfipaadls.azuredatalakestore.net/webhdfs/v1"
+		},
+		"ADLS1_FIPA_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "feeb9294-2e3f-43de-bd12-e6e4301b910b"
+		},
+		"ADLS1_FIPA_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "a136b051-8551-4674-92c1-8dc4abb2b592"
+		},
+		"ADLS1_FIPA_properties_typeProperties_subscriptionId": {
+			"type": "string",
+			"defaultValue": "aca480e6-8a4b-4105-91ce-3c5942657b43"
+		},
+		"ADLS1_FIPA_properties_typeProperties_resourceGroupName": {
+			"type": "string",
+			"defaultValue": "AdfDemo"
 		},
 		"ADLSDestination_properties_typeProperties_url": {
 			"type": "string",
@@ -46,26 +66,6 @@
 		"AzureDataLakeAnalytics1_properties_typeProperties_resourceGroupName": {
 			"type": "string",
 			"defaultValue": "AdfDemo"
-		},
-		"ADLS1_FIPA_properties_typeProperties_dataLakeStoreUri": {
-			"type": "string",
-			"defaultValue": "https://adlanalyticsfipaadls.azuredatalakestore.net/webhdfs/v1"
-		},
-		"ADLS1_FIPA_properties_typeProperties_servicePrincipalId": {
-			"type": "string",
-			"defaultValue": "feeb9294-2e3f-43de-bd12-e6e4301b910b"
-		},
-		"ADLS1_FIPA_properties_typeProperties_tenant": {
-			"type": "string",
-			"defaultValue": "a136b051-8551-4674-92c1-8dc4abb2b592"
-		},
-		"ADLS1_FIPA_properties_typeProperties_subscriptionId": {
-			"type": "string",
-			"defaultValue": "aca480e6-8a4b-4105-91ce-3c5942657b43"
-		},
-		"ADLS1_FIPA_properties_typeProperties_resourceGroupName": {
-			"type": "string",
-			"defaultValue": "AdfDemo"
 		}
 	},
 	"variables": {
@@ -73,7 +73,7 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/BlobToADLS')]",
+			"name": "[concat(parameters('factoryName'), '/BlobToADLS1234')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -123,7 +123,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "ADLS1Fipa_dataset",
+								"referenceName": "ADLS1Fipa_dataset1",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -134,11 +134,11 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/CSVfileinput')]",
-				"[concat(variables('factoryId'), '/datasets/ADLS1Fipa_dataset')]"
+				"[concat(variables('factoryId'), '/datasets/ADLS1Fipa_dataset1')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/USQL')]",
+			"name": "[concat(parameters('factoryName'), '/USQL1234')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -176,7 +176,109 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ADLS1Fipa_dataset1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLS1_FIPA",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureDataLakeStoreLocation",
+						"folderPath": "Files/Input"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLS1_FIPA')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ADLSdatasetoutput')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSDestination",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "output"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Prop_0",
+						"type": "String"
+					},
+					{
+						"name": "Prop_1",
+						"type": "String"
+					},
+					{
+						"name": "Prop_2",
+						"type": "String"
+					},
+					{
+						"name": "Prop_3",
+						"type": "String"
+					},
+					{
+						"name": "Prop_4",
+						"type": "String"
+					},
+					{
+						"name": "Prop_5",
+						"type": "String"
+					},
+					{
+						"name": "Prop_6",
+						"type": "String"
+					},
+					{
+						"name": "Prop_7",
+						"type": "String"
+					},
+					{
+						"name": "Prop_8",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSDestination')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ADLSdatasetoutput1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -284,6 +386,72 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/CSVfileinput1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "BlobStorageSource",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "dictionary.csv",
+						"folderPath": "input",
+						"container": "fipacontainer"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Prop_0",
+						"type": "String"
+					},
+					{
+						"name": "Prop_1",
+						"type": "String"
+					},
+					{
+						"name": "Prop_2",
+						"type": "String"
+					},
+					{
+						"name": "Prop_3",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/BlobStorageSource')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ADLS1_FIPA')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDataLakeStore",
+				"typeProperties": {
+					"dataLakeStoreUri": "[parameters('ADLS1_FIPA_properties_typeProperties_dataLakeStoreUri')]",
+					"servicePrincipalId": "[parameters('ADLS1_FIPA_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "[parameters('ADLS1_FIPA_servicePrincipalKey')]"
+					},
+					"tenant": "[parameters('ADLS1_FIPA_properties_typeProperties_tenant')]",
+					"subscriptionId": "[parameters('ADLS1_FIPA_properties_typeProperties_subscriptionId')]",
+					"resourceGroupName": "[parameters('ADLS1_FIPA_properties_typeProperties_resourceGroupName')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ADLSDestination')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -333,66 +501,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ADLS1_FIPA')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureDataLakeStore",
-				"typeProperties": {
-					"dataLakeStoreUri": "[parameters('ADLS1_FIPA_properties_typeProperties_dataLakeStoreUri')]",
-					"servicePrincipalId": "[parameters('ADLS1_FIPA_properties_typeProperties_servicePrincipalId')]",
-					"servicePrincipalKey": {
-						"type": "SecureString",
-						"value": "[parameters('ADLS1_FIPA_servicePrincipalKey')]"
-					},
-					"tenant": "[parameters('ADLS1_FIPA_properties_typeProperties_tenant')]",
-					"subscriptionId": "[parameters('ADLS1_FIPA_properties_typeProperties_subscriptionId')]",
-					"resourceGroupName": "[parameters('ADLS1_FIPA_properties_typeProperties_resourceGroupName')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ADLS1Fipa_dataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ADLS1_FIPA",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureDataLakeStoreLocation",
-						"folderPath": "Files/Input"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ADLS1_FIPA')]"
-			]
 		}
 	]
 }

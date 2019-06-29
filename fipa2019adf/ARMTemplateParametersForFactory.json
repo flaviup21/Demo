@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "fipa2019adf"
 		},
+		"ADLS1_FIPA_servicePrincipalKey": {
+			"value": ""
+		},
 		"ADLSDestination_accountKey": {
 			"value": ""
 		},
@@ -14,8 +17,20 @@
 		"BlobStorageSource_connectionString": {
 			"value": ""
 		},
-		"ADLS1_FIPA_servicePrincipalKey": {
-			"value": ""
+		"ADLS1_FIPA_properties_typeProperties_dataLakeStoreUri": {
+			"value": "https://adlanalyticsfipaadls.azuredatalakestore.net/webhdfs/v1"
+		},
+		"ADLS1_FIPA_properties_typeProperties_servicePrincipalId": {
+			"value": "feeb9294-2e3f-43de-bd12-e6e4301b910b"
+		},
+		"ADLS1_FIPA_properties_typeProperties_tenant": {
+			"value": "a136b051-8551-4674-92c1-8dc4abb2b592"
+		},
+		"ADLS1_FIPA_properties_typeProperties_subscriptionId": {
+			"value": "aca480e6-8a4b-4105-91ce-3c5942657b43"
+		},
+		"ADLS1_FIPA_properties_typeProperties_resourceGroupName": {
+			"value": "AdfDemo"
 		},
 		"ADLSDestination_properties_typeProperties_url": {
 			"value": "https://datalakestoragefipa.dfs.core.windows.net"
@@ -33,21 +48,6 @@
 			"value": "aca480e6-8a4b-4105-91ce-3c5942657b43"
 		},
 		"AzureDataLakeAnalytics1_properties_typeProperties_resourceGroupName": {
-			"value": "AdfDemo"
-		},
-		"ADLS1_FIPA_properties_typeProperties_dataLakeStoreUri": {
-			"value": "https://adlanalyticsfipaadls.azuredatalakestore.net/webhdfs/v1"
-		},
-		"ADLS1_FIPA_properties_typeProperties_servicePrincipalId": {
-			"value": "feeb9294-2e3f-43de-bd12-e6e4301b910b"
-		},
-		"ADLS1_FIPA_properties_typeProperties_tenant": {
-			"value": "a136b051-8551-4674-92c1-8dc4abb2b592"
-		},
-		"ADLS1_FIPA_properties_typeProperties_subscriptionId": {
-			"value": "aca480e6-8a4b-4105-91ce-3c5942657b43"
-		},
-		"ADLS1_FIPA_properties_typeProperties_resourceGroupName": {
 			"value": "AdfDemo"
 		}
 	}
